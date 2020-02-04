@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import ActivationsNum
 
-# Register your models here.
+
+@admin.register(ActivationsNum)
+class ActivationsNumAdmin(admin.ModelAdmin):
+    readonly_fields = ['date',]
+

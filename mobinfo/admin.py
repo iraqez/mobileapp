@@ -10,7 +10,7 @@ class TaxMobAdmin(admin.ModelAdmin):
 
 @admin.register(NumMob)
 class NumMobAdmin(admin.ModelAdmin):
-    list_display = ('phone', 'get_op', 'TaxMob')
+    list_display = ('phone', 'get_op', 'TaxMob', 'Paused', 'Stop')
     list_filter = ('TaxMob__opname', 'TaxMob')
 
     def get_op(self, obj,):

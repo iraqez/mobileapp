@@ -33,9 +33,24 @@ class TaxMob(models.Model):
         verbose_name_plural = "тарифні плани"
 
 
+class OsRah(models.Model):
+    numRah = models.CharField(max_length=6, verbose_name="Особовий рахунок")
+    OrgInfo = models.ForeignKey(OrgInfo, on_delete=models.PROTECT, verbose_name='Організація')
+
+    def __str__(self):
+        return '%s, %s' %(self.numRah, self.OrgInfo)
+
+    class Meta:
+        verbose_name = "особовий рахунок"
+        verbose_name_plural = "особові рахунки"
+
+
 class NumMob(models.Model):
     phone = PhoneNumberField(blank=True, help_text='Введіть номер телефону', verbose_name='Номер', unique=True)
     TaxMob = models.ForeignKey(TaxMob, on_delete=models.PROTECT, default='+380991111111', verbose_name='Тариф')
+    OsRah = models.ForeignKey(OsRah, on_delete=models.PROTECT, verbose_name='Особовий рахунок')
+    Paused = models.BooleanField(default=False, verbose_name="Пауза")
+    Stop = models.BooleanField(default=False, verbose_name="Припинено")
 
     def __str__(self):
         phone = str(self.phone)
@@ -45,14 +60,3 @@ class NumMob(models.Model):
         verbose_name = "мобільний номер"
         verbose_name_plural = "мобільні номери"
 
-
-class OsRah(models.Model):
-    numRah = models.CharField(max_length=6, verbose_name="Особовий рахунок")
-    OrgInfo = models.ForeignKey(OrgInfo, on_delete=models.PROTECT, verbose_name='Організація')
-
-    def __str__(self):
-        return self.numRah
-
-    class Meta:
-        verbose_name = "особовий рахунок"
-        verbose_name_plural = "особові рахунки"
