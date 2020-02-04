@@ -1,6 +1,6 @@
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
-from userinfo.models import UserNumber
+from userinfo.models import UserNumber, OrgInfo
 
 
 class TaxMob(models.Model):
@@ -23,7 +23,8 @@ class TaxMob(models.Model):
                                                                                        ' поза дарифом')
     SmsOnTax = models.IntegerField(default=0, verbose_name='Кількість СМС в тарифі')
     SmsOffTax = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Вартість СМС поза тарифом')
-
+    MmsOnTax = models.IntegerField(default=0, verbose_name='Кількість MМС в тарифі')
+    MmsOffTax = models.DecimalField(max_digits=10, decimal_places=2, verbose_name='Вартість MМС поза тарифом')
     def __str__(self):
         return self.name
 
@@ -43,3 +44,15 @@ class NumMob(models.Model):
     class Meta:
         verbose_name = "мобільний номер"
         verbose_name_plural = "мобільні номери"
+
+
+class OsRah(models.Model):
+    numRah = models.CharField(max_length=6, verbose_name="Особовий рахунок")
+    OrgInfo = models.ForeignKey(OrgInfo, on_delete=models.PROTECT, verbose_name='Організація')
+
+    def __str__(self):
+        return self.numRah
+
+    class Meta:
+        verbose_name = "особовий рахунок"
+        verbose_name_plural = "особові рахунки"

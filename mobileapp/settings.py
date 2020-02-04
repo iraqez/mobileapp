@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'mobinfo',
     'userinfo',
     'phonenumber_field',
+    'crispy_forms',
 
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
