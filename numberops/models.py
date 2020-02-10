@@ -5,6 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 from datetime import datetime
 
 
+
 class CardNum(models.Model):
     pass
 
@@ -20,6 +21,13 @@ class ActivationsNum(models.Model):
         phone = str(self.NumMob)
         return phone
 
+    def save(self, *args, **kwargs):
+        Nmob = NumMob(phone=self.NumMob, TaxMob=TaxMob(id=self.TaxMob_id), OsRah=OsRah(id=self.OsRah_id), Paused=True, Stop=True)
+        Nmob.save()
+
+        super(ActivationsNum, self).save()
+
+
     class Meta:
         verbose_name = "активація номера"
         verbose_name_plural = "активація номерів"
@@ -27,6 +35,13 @@ class ActivationsNum(models.Model):
 
 class StopNum(models.Model):
     pass
+    # NumMob = models.ForeignKey(NumMob, on_delete=models.PROTECT, verbose_name='Номер для призупинки')
+    # def save(self, *args, **kwargs):
+    #     Mnum = NumMob(id=self.NumMob_id)
+    #     if Mnum.Stop=True:
+    #     lambda SelAndStop:
+    #
+    #     super(StopNum, self).save()
 
 
 class PausedNum(models.Model):
